@@ -1,0 +1,74 @@
+{
+    "name": "InputAction",
+    "maps": [
+        {
+            "name": "KeyboardOnly",
+            "id": "caebcbc4-aa52-43a4-be12-c27256c4e086",
+            "actions": [
+                {
+                    "name": "Space",
+                    "type": "Button",
+                    "id": "98117ac8-5121-4c3f-8953-40bc4c15191d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "A",
+                    "type": "Button",
+                    "id": "a2361a05-88a8-4e99-9328-2a5931a66eea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Z",
+                    "type": "Button",
+                    "id": "e69f3d4c-c7ba-46f9-8b46-0bec19f45cfd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "007ae644-ec88-4004-b124-b53c40c9c917",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Space",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e719c535-b4d2-450e-86e7-f6c20e287120",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "A",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fcc6b019-da77-4df2-84ff-705194202731",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Z",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
