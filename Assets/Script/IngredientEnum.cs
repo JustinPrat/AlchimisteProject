@@ -5,9 +5,9 @@ public enum HeatLevel
 }
 public enum PotionType
 {
-    Rouge,
-    Vert,
-    Bleu
+    Rouge = 0,
+    Vert = 1,
+    Bleu = 2
 }
 public enum IngredientType
 {
