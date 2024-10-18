@@ -20,6 +20,15 @@ public class ActionEvent : MonoBehaviour
     [SerializeField] public UnityEvent _onUse1;
     [SerializeField] public UnityEvent _onUse2;
     [SerializeField] public UnityEvent _onUse3;
+    [SerializeField] public UnityEvent _onValidate;
+
+    [SerializeField] RecipeManager recipeManager;
+    [SerializeField] public SOCurrentRecipe currentRecipe;
+    [HideInInspector] public PotionType playerPotion;
+    [HideInInspector] public IngredientType ingredientType;
+    [HideInInspector] public HeatLevel heatLevel;
+    
+
 
     private void Awake()
     {
@@ -28,34 +37,24 @@ public class ActionEvent : MonoBehaviour
         animFiole2 = fiole2.GetComponent<Animation>();
         animFiole3 = fiole3.GetComponent<Animation>();
     }
-    private void Start()
-    {
-
-    }
     public void OnUse1(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             Debug.Log("Use1");
-            animator.SetBool("isPressed1", true);
+            playerPotion = PotionType.Rouge;
+            //animator.SetBool("isPressed1", true);
             //animator.Play("Fiole1");
         }
-        if (context.canceled)
-        {
-            animator.SetBool("isPressed1", false);
-        }
-    }
+    } 
     public void OnUse2(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             Debug.Log("Use2");
-            animator.SetBool("isPressed2", true);
+            playerPotion = PotionType.Bleu;
+            //animator.SetBool("isPressed2", true);
             //animator.Play("Fiole2");
-        }
-        if (context.canceled)
-        {
-            animator.SetBool("isPressed2", false);
         }
     }
     public void OnUse3(InputAction.CallbackContext context)
@@ -63,11 +62,27 @@ public class ActionEvent : MonoBehaviour
         if (context.started)
         {
             Debug.Log("Use3");
-            animator.SetBool("isPressed3", true);
+            playerPotion = PotionType.Vert;
+            //animator.SetBool("isPressed3", true);
         }
-        if (context.canceled)
+    }
+    public void OnValidate(InputAction.CallbackContext context)
+    {
+        if (context.started)
         {
-            animator.SetBool("isPressed3", false);
+            Debug.Log("Validate");
+
+            //heatLevel == valeur script de Dan
+            //bool isRecipeCorrect = recipeManager.ComparePlayerResult(playerPotion, ingredientType, heatLevel);
+            recipeManager.CompareLowCostResult(playerPotion);
+/*            if (isRecipeCorrect)
+            {
+                Debug.Log("Recette validée !");
+            }
+            else
+            {
+                Debug.Log("La recette est incorrecte.");
+            }*/
         }
     }
 }

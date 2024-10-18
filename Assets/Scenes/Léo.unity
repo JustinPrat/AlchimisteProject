@@ -836,8 +836,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1227351819}
   - component: {fileID: 1227351818}
+  - component: {fileID: 1227351820}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -902,6 +903,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1227351820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227351816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e61cd062a95b6241aa9c4f3a5e22819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRecipe: {fileID: 0}
+  recipes: []
 --- !u!1 &1281829055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,6 +1461,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  currentRecipe: {fileID: 11400000, guid: b8b6ece9af9f0254c87064173ea24899, type: 2}
+  playerPotion: 0
+  ingredientType: 0
+  HeatLevel: 0
 --- !u!114 &1606879792
 MonoBehaviour:
   m_ObjectHideFlags: 0
