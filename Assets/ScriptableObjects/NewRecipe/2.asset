@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ee7ee1639ebaf46a58efcec74123b8, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  id: 0
-  potionType: 2
-  ingredientType: 0
-  heatLevel: 0
+  Id: 0
+  Recipe:
+    potionType: 2
+    ingredientType: 0
+    heatLevel: 1

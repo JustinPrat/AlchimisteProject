@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using System;
 
 public class ActionEvent : MonoBehaviour
 {
@@ -17,17 +18,14 @@ public class ActionEvent : MonoBehaviour
     [SerializeField] GameObject fiole2;
     [SerializeField] GameObject fiole3;
 
-    [SerializeField] public UnityEvent _onUse1;
-    [SerializeField] public UnityEvent _onUse2;
-    [SerializeField] public UnityEvent _onUse3;
-    [SerializeField] public UnityEvent _onValidate;
+    public Action<PotionType> OnChangePotion;
+    public Action<IngredientType> OnChangeIngredient;
+    public Action<HeatLevel> OnChangeHeat;
+
+    public Action OnValidateRecipe;
 
     [SerializeField] public RecipeManager recipeManager;
     [SerializeField] public SOCurrentRecipe currentRecipe;
-    [HideInInspector] public PotionType playerPotion;
-    [HideInInspector] public IngredientType ingredientType;
-    [HideInInspector] public HeatLevel heatLevel;
-    
 
 
     private void Awake()
@@ -37,57 +35,31 @@ public class ActionEvent : MonoBehaviour
         animFiole2 = fiole2.GetComponent<Animation>();
         animFiole3 = fiole3.GetComponent<Animation>();
     }
-    private void Start()
+
+    public void ChangePotion (int type)
     {
-        ingredientType = IngredientType.A;
-        heatLevel = HeatLevel.Chaud;
+        Debug.Log("Type de potion : " + ((PotionType)type).ToString() + " / value : " + type);
+        OnChangePotion?.Invoke((PotionType) type);
     }
-    public void OnUse1(InputAction.CallbackContext context)
+
+    public void ChangeIngredient(int type)
     {
-        if (context.started)
-        {
-            Debug.Log("Use1");
-            playerPotion = PotionType.Rouge;
-            //animator.SetBool("isPressed1", true);
-            //animator.Play("Fiole1");
-        }
-    } 
-    public void OnUse2(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            Debug.Log("Use2");
-            playerPotion = PotionType.Bleu;
-            //animator.SetBool("isPressed2", true);
-            //animator.Play("Fiole2");
-        }
+        Debug.Log("Type de potion : " + ((IngredientType)type).ToString() + " / value : " + type);
+        OnChangeIngredient?.Invoke((IngredientType)type);
     }
-    public void OnUse3(InputAction.CallbackContext context)
+
+    public void ChangeHeat(int type)
     {
-        if (context.started)
-        {
-            Debug.Log("Use3");
-            playerPotion = PotionType.Vert;
-            //animator.SetBool("isPressed3", true);
-        }
+        Debug.Log("Type de potion : " + ((HeatLevel)type).ToString() + " / value : " + type);
+        OnChangeHeat?.Invoke((HeatLevel)type);
     }
-    public void OnValidate(InputAction.CallbackContext context)
+
+    public void OnValidateButton(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             Debug.Log("Validate");
-
-            //heatLevel == valeur script de Dan
-            //bool isRecipeCorrect = recipeManager.ComparePlayerResult(playerPotion, ingredientType, heatLevel);
-            recipeManager.CompareLowCostResult(playerPotion);
-/*            if (isRecipeCorrect)
-            {
-                Debug.Log("Recette validée !");
-            }
-            else
-            {
-                Debug.Log("La recette est incorrecte.");
-            }*/
+            OnValidateRecipe?.Invoke();
         }
     }
 }

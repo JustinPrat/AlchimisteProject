@@ -1,31 +1,74 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class RecipeManager : MonoBehaviour
 {
-    
-    public SOCurrentRecipe currentRecipe;
     public SORecipe targetRecipe;
-    [SerializeField] List<SORecipe> recipes = new List<SORecipe>();
-    private int currentRecipeIndex = 0;
+    public Recipe currentRecipe = new Recipe();
 
-    [SerializeField] ActionEvent actionEvent;
+    [SerializeField] private List<SORecipe> recipes = new List<SORecipe>();
+    [SerializeField] private ActionEvent actionEvent;
+    [SerializeField] private VisualEffect visualEffectBubble;
 
     private Rect currentRecipeWindowRect = new Rect(10, 10, 250, 150);
     private Rect targetRecipeWindowRect = new Rect(270, 10, 250, 150);
 
+    private int currentRecipeIndex = 0;
+
+    [SerializeField, GradientUsage(true)] private List<Gradient> gradientsBubble;
 
     private void Start()
     {
+        targetRecipe.Recipe = new Recipe();
+
         if (recipes.Count > 0)
         {
             targetRecipe = recipes[0];
         }
+
+        actionEvent.OnChangePotion += SetElement;
+        actionEvent.OnChangeIngredient += SetElement;
+        actionEvent.OnChangeHeat += SetElement;
+        actionEvent.OnValidateRecipe += TryValidate;
+
+        visualEffectBubble.SetGradient("MainColorGradient", gradientsBubble[(int)currentRecipe.potionType]);
     }
+
+    private void OnDestroy()
+    {
+        actionEvent.OnChangePotion -= SetElement;
+        actionEvent.OnChangeIngredient -= SetElement;
+        actionEvent.OnChangeHeat -= SetElement;
+        actionEvent.OnValidateRecipe -= TryValidate;
+    }
+
+    public void SetElement (PotionType type)
+    {
+        currentRecipe.potionType = type;
+        visualEffectBubble.SetGradient("MainColorGradient", gradientsBubble[(int)type]);
+    }
+
+    public void SetElement(IngredientType type)
+    {
+        currentRecipe.ingredientType = type;
+    }
+
+    public void SetElement(HeatLevel type)
+    {
+        currentRecipe.heatLevel = type;
+    }
+
+    private void TryValidate ()
+    {
+        ComparePlayerResult(targetRecipe.Recipe.potionType, targetRecipe.Recipe.ingredientType, targetRecipe.Recipe.heatLevel);
+    }
+
     public bool ComparePlayerResult(PotionType playerPotion, IngredientType playerIngredient, HeatLevel playerHeat)
     {
-        if (playerPotion == actionEvent.playerPotion && playerIngredient == actionEvent.ingredientType && playerHeat == actionEvent.heatLevel)
+        if (playerPotion == currentRecipe.potionType && playerIngredient == currentRecipe.ingredientType && playerHeat == currentRecipe.heatLevel)
         {
             Debug.Log("Recette correcte !");
             SetNextRecipe();
@@ -37,15 +80,6 @@ public class RecipeManager : MonoBehaviour
             return false;
         }
     }
-    public void CompareLowCostResult(PotionType playerPotion)
-    {
-        if (playerPotion == actionEvent.playerPotion)
-        {
-            Debug.Log("Recette correcte !");
-            SetNextRecipe();
-        }
-    }
-
 
     private void SetNextRecipe()
     {
@@ -71,9 +105,9 @@ public class RecipeManager : MonoBehaviour
     {
         if (currentRecipe != null)
         {
-            GUILayout.Label("Potion: " + actionEvent.playerPotion);
-            //GUILayout.Label("Ingredient: " + actionEvent.ingredientType);
-            //GUILayout.Label("Heat: " + actionEvent.heatLevel);
+            GUILayout.Label("Potion: " + currentRecipe.potionType);
+            GUILayout.Label("Ingredient: " + currentRecipe.ingredientType);
+            GUILayout.Label("Heat: " + currentRecipe.heatLevel);
         }
         else
         {
@@ -87,9 +121,9 @@ public class RecipeManager : MonoBehaviour
     {
         if (targetRecipe != null)
         {
-            GUILayout.Label("Potion: " + targetRecipe.potionType);
-            GUILayout.Label("Ingredient: " + targetRecipe.ingredientType);
-            GUILayout.Label("Heat: " + targetRecipe.heatLevel);
+            GUILayout.Label("Potion: " + targetRecipe.Recipe.potionType);
+            GUILayout.Label("Ingredient: " + targetRecipe.Recipe.ingredientType);
+            GUILayout.Label("Heat: " + targetRecipe.Recipe.heatLevel);
         }
         else
         {
@@ -98,4 +132,12 @@ public class RecipeManager : MonoBehaviour
 
         GUI.DragWindow();
     }
+}
+
+[Serializable]
+public class Recipe
+{
+    public PotionType potionType;
+    public IngredientType ingredientType;
+    public HeatLevel heatLevel;
 }
