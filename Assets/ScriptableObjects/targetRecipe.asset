@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: targetRecipe
   m_EditorClassIdentifier: 
   id: 0
-  potionType: 0
-  ingredientType: 0
-  heatLevel: 0
+  potionType: 2
+  ingredientType: 1
+  heatLevel: 1

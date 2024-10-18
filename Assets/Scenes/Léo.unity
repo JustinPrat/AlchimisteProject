@@ -915,8 +915,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e61cd062a95b6241aa9c4f3a5e22819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRecipe: {fileID: 0}
-  recipes: []
+  currentRecipe: {fileID: 11400000, guid: b8b6ece9af9f0254c87064173ea24899, type: 2}
+  targetRecipe: {fileID: 11400000, guid: ea7d6ec3d5360b54bab830e2fe1088df, type: 2}
+  recipes:
+  - {fileID: 11400000, guid: 9fbed6a643e7ed04188ccb8cdd3e1ac5, type: 2}
+  - {fileID: 11400000, guid: c78449d73989eeb4f8537e1873db2dd1, type: 2}
+  - {fileID: 11400000, guid: 3f9337b068dce2946bc923450f2cfc7c, type: 2}
 --- !u!1 &1281829055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,10 +1465,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onValidate:
+    m_PersistentCalls:
+      m_Calls: []
+  recipeManager: {fileID: 1227351820}
   currentRecipe: {fileID: 11400000, guid: b8b6ece9af9f0254c87064173ea24899, type: 2}
   playerPotion: 0
   ingredientType: 0
-  HeatLevel: 0
+  heatLevel: 0
 --- !u!114 &1606879792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1539,6 +1547,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e69f3d4c-c7ba-46f9-8b46-0bec19f45cfd
     m_ActionName: KeyboardOnly/Z[/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1606879791}
+        m_TargetAssemblyTypeName: ActionEvent, Assembly-CSharp
+        m_MethodName: OnValidate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1fc58c28-159c-4b48-80ea-96b62fee9352
+    m_ActionName: KeyboardOnly/Enter[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: KeyboardOnly
