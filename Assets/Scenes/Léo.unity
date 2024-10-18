@@ -921,6 +921,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9fbed6a643e7ed04188ccb8cdd3e1ac5, type: 2}
   - {fileID: 11400000, guid: c78449d73989eeb4f8537e1873db2dd1, type: 2}
   - {fileID: 11400000, guid: 3f9337b068dce2946bc923450f2cfc7c, type: 2}
+  actionEvent: {fileID: 1606879791}
 --- !u!1 &1281829055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,7 +1393,7 @@ GameObject:
   - component: {fileID: 1606879791}
   - component: {fileID: 1606879794}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,7 +1468,21 @@ MonoBehaviour:
         m_CallState: 2
   _onValidate:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1606879792}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: set_actions
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: -944628639613478452, guid: 2fde5d5bb2e69b14f8cadfb12a65865e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.InputSystem.InputActionAsset,
+            Unity.InputSystem
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   recipeManager: {fileID: 1227351820}
   currentRecipe: {fileID: 11400000, guid: b8b6ece9af9f0254c87064173ea24899, type: 2}
   playerPotion: 0
@@ -2000,9 +2015,9 @@ SceneRoots:
   - {fileID: 1892219174}
   - {fileID: 1469560400}
   - {fileID: 1227351819}
+  - {fileID: 1606879793}
   - {fileID: 1345363996}
   - {fileID: 209058622}
   - {fileID: 1686895295}
   - {fileID: 1290143561}
-  - {fileID: 1606879793}
   - {fileID: 216927892}

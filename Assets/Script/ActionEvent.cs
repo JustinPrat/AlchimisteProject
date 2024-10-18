@@ -22,7 +22,7 @@ public class ActionEvent : MonoBehaviour
     [SerializeField] public UnityEvent _onUse3;
     [SerializeField] public UnityEvent _onValidate;
 
-    [SerializeField] RecipeManager recipeManager;
+    [SerializeField] public RecipeManager recipeManager;
     [SerializeField] public SOCurrentRecipe currentRecipe;
     [HideInInspector] public PotionType playerPotion;
     [HideInInspector] public IngredientType ingredientType;
@@ -36,6 +36,11 @@ public class ActionEvent : MonoBehaviour
         animFiole1 = fiole1.GetComponent<Animation>();
         animFiole2 = fiole2.GetComponent<Animation>();
         animFiole3 = fiole3.GetComponent<Animation>();
+    }
+    private void Start()
+    {
+        ingredientType = IngredientType.A;
+        heatLevel = HeatLevel.Chaud;
     }
     public void OnUse1(InputAction.CallbackContext context)
     {

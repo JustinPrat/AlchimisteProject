@@ -10,7 +10,7 @@ public class RecipeManager : MonoBehaviour
     [SerializeField] List<SORecipe> recipes = new List<SORecipe>();
     private int currentRecipeIndex = 0;
 
-    ActionEvent actionEvent;
+    [SerializeField] ActionEvent actionEvent;
 
     private Rect currentRecipeWindowRect = new Rect(10, 10, 250, 150);
     private Rect targetRecipeWindowRect = new Rect(270, 10, 250, 150);
@@ -71,13 +71,13 @@ public class RecipeManager : MonoBehaviour
     {
         if (currentRecipe != null)
         {
-            //GUILayout.Label("Potion Type: " + actionEvent.playerPotion);
-            //GUILayout.Label("Ingredient Type: " + actionEvent.ingredientType);
-            //GUILayout.Label("Heat Level: " + actionEvent.heatLevel);
+            GUILayout.Label("Potion: " + actionEvent.playerPotion);
+            //GUILayout.Label("Ingredient: " + actionEvent.ingredientType);
+            //GUILayout.Label("Heat: " + actionEvent.heatLevel);
         }
         else
         {
-            GUILayout.Label("Aucune recette actuelle.");
+            GUILayout.Label("null");
         }
 
         GUI.DragWindow();
@@ -87,13 +87,13 @@ public class RecipeManager : MonoBehaviour
     {
         if (targetRecipe != null)
         {
-            GUILayout.Label("Potion Type: " + targetRecipe.potionType);
-            GUILayout.Label("Ingredient Type: " + targetRecipe.ingredientType);
-            GUILayout.Label("Heat Level: " + targetRecipe.heatLevel);
+            GUILayout.Label("Potion: " + targetRecipe.potionType);
+            GUILayout.Label("Ingredient: " + targetRecipe.ingredientType);
+            GUILayout.Label("Heat: " + targetRecipe.heatLevel);
         }
         else
         {
-            GUILayout.Label("Aucune recette cible.");
+            GUILayout.Label("null");
         }
 
         GUI.DragWindow();
