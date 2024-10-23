@@ -8,13 +8,6 @@ using System;
 
 public class ActionEvent : MonoBehaviour
 {
-    InputAction inputAction;
-    PlayerInput input;
-    Animation animFiole1;
-    Animation animFiole2;
-    Animation animFiole3;
-    [SerializeField] Animator animator;
-
     public Action<PotionType> OnSTARTChangePotion;
     public Action<IngredientType> OnSTARTChangeIngredient;
     public Action<HeatLevel> OnSTARTChangeHeat;
@@ -27,11 +20,8 @@ public class ActionEvent : MonoBehaviour
 
     [SerializeField] public RecipeManager recipeManager;
     [SerializeField] public SOCurrentRecipe currentRecipe;
-<<<<<<< Updated upstream
-    Fire fire;
-=======
-    [SerializeField] public float cooldownTime;
->>>>>>> Stashed changes
+
+    [SerializeField] public float heatCooldownTime;
 
     private bool canChangePotion = true;
     private bool canChangeIngredient = true;
@@ -39,9 +29,14 @@ public class ActionEvent : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-
         OnENDChangeIngredient += EndOfIngredientChange;
+        OnENDChangePotion += EndOfPotionChange;
+    }
+
+    private void OnDestroy()
+    {
+        OnENDChangeIngredient -= EndOfIngredientChange;
+        OnENDChangePotion -= EndOfPotionChange;
     }
 
     private void EndOfIngredientChange (IngredientType type)
@@ -52,6 +47,11 @@ public class ActionEvent : MonoBehaviour
     private void EndOfPotionChange (PotionType type)
     {
         canChangePotion = true;
+    }
+
+    private void EndOfHeatChange()
+    {
+        canChangeHeat = true;
     }
 
     public void ChangePotion (int type)
@@ -78,17 +78,13 @@ public class ActionEvent : MonoBehaviour
     public void ChangeHeat(int type)
     {
         Debug.Log("Type de potion : " + ((HeatLevel)type).ToString() + " / value : " + type);
-<<<<<<< Updated upstream
-        OnChangeHeat?.Invoke((HeatLevel)type);
-        fire.AddFire();
-=======
+
         if (canChangeHeat)
         {
             canChangeHeat = false;
             OnSTARTChangeHeat?.Invoke((HeatLevel)type);
-            OnENDChangeHeat?.Invoke((HeatLevel)type);
+            StartCoroutine(CooldownBetweenPress(EndOfHeatChange));
         }
->>>>>>> Stashed changes
     }
 
     public void OnValidateButton(InputAction.CallbackContext context)
@@ -102,7 +98,7 @@ public class ActionEvent : MonoBehaviour
 
     public IEnumerator CooldownBetweenPress (Action toDoAfter)
     {
-        yield return new WaitForSeconds(cooldownTime);
+        yield return new WaitForSeconds(heatCooldownTime);
         toDoAfter?.Invoke();
     }
 }

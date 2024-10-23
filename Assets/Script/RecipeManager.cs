@@ -23,6 +23,20 @@ public class RecipeManager : MonoBehaviour
     [SerializeField, GradientUsage(true)] private List<Gradient> gradientsBubble;
     [SerializeField, GradientUsage(true)] private List<Gradient> gradientsDrop;
 
+    private float fireValuePercent;
+    [SerializeField] private float firePace;
+    [SerializeField] private float fireIncrease;
+    [SerializeField] private float fireThresholdHot;
+
+    private void Update()
+    {
+        fireValuePercent -= Time.deltaTime * firePace;
+        fireValuePercent = Mathf.Clamp(fireValuePercent, 0, 100);
+
+        HeatLevel heat = fireValuePercent >= fireThresholdHot ? HeatLevel.Chaud : HeatLevel.Froid;
+        actionEvent.OnENDChangeHeat?.Invoke(heat);
+    }
+
     private void Start()
     {
         targetRecipe.Recipe = new Recipe();
@@ -36,6 +50,7 @@ public class RecipeManager : MonoBehaviour
         actionEvent.OnENDChangeIngredient += SetElement;
         actionEvent.OnENDChangeHeat += SetElement;
         actionEvent.OnValidateRecipe += TryValidate;
+        actionEvent.OnSTARTChangeHeat += IncreaseValue;
 
         visualEffectBubble.SetGradient("MainColorGradient", gradientsBubble[(int)currentRecipe.potionType]);
         visualEffectDrop.SetGradient("MainGradient", gradientsDrop[(int)currentRecipe.potionType]);
@@ -47,6 +62,12 @@ public class RecipeManager : MonoBehaviour
         actionEvent.OnENDChangeIngredient -= SetElement;
         actionEvent.OnENDChangeHeat -= SetElement;
         actionEvent.OnValidateRecipe -= TryValidate;
+    }
+
+    private void IncreaseValue (HeatLevel heatLevel)
+    {
+        fireValuePercent += fireIncrease;
+        fireValuePercent = Mathf.Clamp(fireValuePercent, 0, 100);
     }
 
     public void SetElement (PotionType type)

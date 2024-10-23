@@ -1,19 +1,18 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
 
 public class SplineAnimation : MonoBehaviour
 {
-    private SplineExtrude splineExtrude;
+    [SerializeField] private SplineExtrude splineExtrude;
+    [SerializeField] private ActionEvent inputs;
 
-    private float startValue = 0.0f;
+    private float startValue = 1.0f;
     private float endValue = 1.0f;
     private float lerpTime = 0.0f;
-    private bool isAnimating = false;
 
     void Start()
     {
-        splineExtrude = GetComponent<SplineExtrude>();
-
         if (splineExtrude == null)
         {
             Debug.LogError("SplineExtrude component not found on the GameObject.");
@@ -23,34 +22,44 @@ public class SplineAnimation : MonoBehaviour
         SetExtrusionRange(0.0f, 0.0f);
     }
 
-    void Update()
+    public void DoAnimation (PotionType type)
     {
-        if (Input.GetKey("g"))
-        {
-            lerpTime += Time.deltaTime;
-
-            float newStartValue = Mathf.Lerp(0.0f, startValue, lerpTime);
-            float newEndValue = Mathf.Lerp(0.0f, endValue, lerpTime);
-
-            SetExtrusionRange(newStartValue, newEndValue);
-
-            if (lerpTime >= 1.0f)
-            {
-                isAnimating = false;
-            }
-        }
+        StartCoroutine(MoveLiquid(type));
     }
+
+    private IEnumerator MoveLiquid (PotionType type)
+    {
+        while (lerpTime <= 1)
+        {
+            //float newStartValue = Mathf.Lerp(0.0f, startValue, lerpTime);
+            float newEndValue = Mathf.Lerp(0.0f, endValue, lerpTime);
+            SetExtrusionRange(0, newEndValue);
+            lerpTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        ResetExtrusionAnimation();
+
+        while (lerpTime <= 1)
+        {
+            float newStartValue = Mathf.Lerp(0.0f, startValue, lerpTime);
+            SetExtrusionRange(newStartValue, 1);
+            lerpTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        ResetExtrusionAnimation();
+        inputs.OnENDChangePotion?.Invoke(type);
+    }
+
     void SetExtrusionRange(float start, float end)
     {
         splineExtrude.Range = new Vector2(start, end);
-        //splineExtrude.start = start;
-        //splineExtrude.end = end;
         splineExtrude.Rebuild();
     }
 
-    public void StartExtrusionAnimation()
+    public void ResetExtrusionAnimation()
     {
         lerpTime = 0.0f;
-        isAnimating = true;
     }
 }
