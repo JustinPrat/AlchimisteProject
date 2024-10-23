@@ -26,6 +26,7 @@ public class ActionEvent : MonoBehaviour
 
     [SerializeField] public RecipeManager recipeManager;
     [SerializeField] public SOCurrentRecipe currentRecipe;
+    Fire fire;
 
 
     private void Awake()
@@ -52,6 +53,7 @@ public class ActionEvent : MonoBehaviour
     {
         Debug.Log("Type de potion : " + ((HeatLevel)type).ToString() + " / value : " + type);
         OnChangeHeat?.Invoke((HeatLevel)type);
+        fire.AddFire();
     }
 
     public void OnValidateButton(InputAction.CallbackContext context)
