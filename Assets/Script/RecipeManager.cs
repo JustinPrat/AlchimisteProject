@@ -11,7 +11,9 @@ public class RecipeManager : MonoBehaviour
 
     [SerializeField] private List<SORecipe> recipes = new List<SORecipe>();
     [SerializeField] private ActionEvent actionEvent;
+
     [SerializeField] private VisualEffect visualEffectBubble;
+    [SerializeField] private VisualEffect visualEffectDrop;
 
     private Rect currentRecipeWindowRect = new Rect(10, 10, 250, 150);
     private Rect targetRecipeWindowRect = new Rect(270, 10, 250, 150);
@@ -19,6 +21,7 @@ public class RecipeManager : MonoBehaviour
     private int currentRecipeIndex = 0;
 
     [SerializeField, GradientUsage(true)] private List<Gradient> gradientsBubble;
+    [SerializeField, GradientUsage(true)] private List<Gradient> gradientsDrop;
 
     private void Start()
     {
@@ -29,19 +32,20 @@ public class RecipeManager : MonoBehaviour
             targetRecipe = recipes[0];
         }
 
-        actionEvent.OnChangePotion += SetElement;
-        actionEvent.OnChangeIngredient += SetElement;
-        actionEvent.OnChangeHeat += SetElement;
+        actionEvent.OnENDChangePotion += SetElement;
+        actionEvent.OnENDChangeIngredient += SetElement;
+        actionEvent.OnENDChangeHeat += SetElement;
         actionEvent.OnValidateRecipe += TryValidate;
 
         visualEffectBubble.SetGradient("MainColorGradient", gradientsBubble[(int)currentRecipe.potionType]);
+        visualEffectDrop.SetGradient("MainGradient", gradientsDrop[(int)currentRecipe.potionType]);
     }
 
     private void OnDestroy()
     {
-        actionEvent.OnChangePotion -= SetElement;
-        actionEvent.OnChangeIngredient -= SetElement;
-        actionEvent.OnChangeHeat -= SetElement;
+        actionEvent.OnENDChangePotion -= SetElement;
+        actionEvent.OnENDChangeIngredient -= SetElement;
+        actionEvent.OnENDChangeHeat -= SetElement;
         actionEvent.OnValidateRecipe -= TryValidate;
     }
 
@@ -49,6 +53,7 @@ public class RecipeManager : MonoBehaviour
     {
         currentRecipe.potionType = type;
         visualEffectBubble.SetGradient("MainColorGradient", gradientsBubble[(int)type]);
+        visualEffectDrop.SetGradient("MainGradient", gradientsDrop[(int)currentRecipe.potionType]);
     }
 
     public void SetElement(IngredientType type)

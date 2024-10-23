@@ -14,46 +14,81 @@ public class ActionEvent : MonoBehaviour
     Animation animFiole2;
     Animation animFiole3;
     [SerializeField] Animator animator;
-    [SerializeField] GameObject fiole1;
-    [SerializeField] GameObject fiole2;
-    [SerializeField] GameObject fiole3;
 
-    public Action<PotionType> OnChangePotion;
-    public Action<IngredientType> OnChangeIngredient;
-    public Action<HeatLevel> OnChangeHeat;
+    public Action<PotionType> OnSTARTChangePotion;
+    public Action<IngredientType> OnSTARTChangeIngredient;
+    public Action<HeatLevel> OnSTARTChangeHeat;
+
+    public Action<PotionType> OnENDChangePotion;
+    public Action<IngredientType> OnENDChangeIngredient;
+    public Action<HeatLevel> OnENDChangeHeat;
 
     public Action OnValidateRecipe;
 
     [SerializeField] public RecipeManager recipeManager;
     [SerializeField] public SOCurrentRecipe currentRecipe;
+<<<<<<< Updated upstream
     Fire fire;
+=======
+    [SerializeField] public float cooldownTime;
+>>>>>>> Stashed changes
 
+    private bool canChangePotion = true;
+    private bool canChangeIngredient = true;
+    private bool canChangeHeat = true;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        animFiole1 = fiole1.GetComponent<Animation>();
-        animFiole2 = fiole2.GetComponent<Animation>();
-        animFiole3 = fiole3.GetComponent<Animation>();
+
+        OnENDChangeIngredient += EndOfIngredientChange;
+    }
+
+    private void EndOfIngredientChange (IngredientType type)
+    {
+        canChangeIngredient = true;
+    }
+
+    private void EndOfPotionChange (PotionType type)
+    {
+        canChangePotion = true;
     }
 
     public void ChangePotion (int type)
     {
         Debug.Log("Type de potion : " + ((PotionType)type).ToString() + " / value : " + type);
-        OnChangePotion?.Invoke((PotionType) type);
+        if (canChangePotion)
+        {
+            canChangePotion = false;
+            OnSTARTChangePotion?.Invoke((PotionType)type);
+            //StartCoroutine(CooldownBetweenPress(() => canChangePotion = true));
+        }
     }
 
     public void ChangeIngredient(int type)
     {
         Debug.Log("Type de potion : " + ((IngredientType)type).ToString() + " / value : " + type);
-        OnChangeIngredient?.Invoke((IngredientType)type);
+        if (canChangeIngredient)
+        {
+            canChangeIngredient = false;
+            OnSTARTChangeIngredient?.Invoke((IngredientType)type);
+        }
     }
 
     public void ChangeHeat(int type)
     {
         Debug.Log("Type de potion : " + ((HeatLevel)type).ToString() + " / value : " + type);
+<<<<<<< Updated upstream
         OnChangeHeat?.Invoke((HeatLevel)type);
         fire.AddFire();
+=======
+        if (canChangeHeat)
+        {
+            canChangeHeat = false;
+            OnSTARTChangeHeat?.Invoke((HeatLevel)type);
+            OnENDChangeHeat?.Invoke((HeatLevel)type);
+        }
+>>>>>>> Stashed changes
     }
 
     public void OnValidateButton(InputAction.CallbackContext context)
@@ -63,5 +98,11 @@ public class ActionEvent : MonoBehaviour
             Debug.Log("Validate");
             OnValidateRecipe?.Invoke();
         }
+    }
+
+    public IEnumerator CooldownBetweenPress (Action toDoAfter)
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        toDoAfter?.Invoke();
     }
 }
