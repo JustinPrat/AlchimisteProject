@@ -1,3 +1,5 @@
+using System;
+
 public enum HeatLevel
 {
     Chaud,
@@ -9,6 +11,7 @@ public enum PotionType
     Vert = 1,
     Bleu = 2
 }
+
 public enum IngredientType
 {
     A,

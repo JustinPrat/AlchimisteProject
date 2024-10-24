@@ -11,7 +11,7 @@ public class Fire : MonoBehaviour
         fireValue -= firePace * Time.deltaTime;
     }
 
-    void AddFire()
+    public void AddFire()
     {
         fireValue += fireAddValue;
     }
