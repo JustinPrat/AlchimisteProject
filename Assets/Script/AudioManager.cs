@@ -17,8 +17,19 @@ public class AudioManager : MonoBehaviour
     [Space]
     [Header("Audio Clips")]
     [SerializeField] private AudioClip gameMusic;
-    [SerializeField] private AudioClip buttonSound;
-    [SerializeField] List<AudioClip> randomSfxSounds = new List<AudioClip>();
+    [SerializeField] private AudioClip boilingWaterSfx;
+    [SerializeField] private AudioClip cracklingFireSfx;
+    [SerializeField] private AudioClip poppingBubblesSfx;
+    [SerializeField] private AudioClip flowingWaterSfx;
+    [SerializeField] private AudioClip toiletFlushSfx;
+    [SerializeField] private AudioClip fireRefuelSfx;
+    [SerializeField] private AudioClip fireBlowSfx;
+    [SerializeField] private AudioClip leverActivationSfx;
+    [SerializeField] private AudioClip victorySfx;
+    [SerializeField] private AudioClip failSfx;
+    
+    [SerializeField] List<AudioClip> randomWaterSfxSounds = new List<AudioClip>();
+    [SerializeField] List<AudioClip> randomValveSfxSounds = new List<AudioClip>();
     
     private void Awake()
     {

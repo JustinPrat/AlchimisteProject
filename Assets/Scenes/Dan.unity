@@ -173,7 +173,32 @@ MonoBehaviour:
   musicSourceObj: {fileID: 661691772}
   sfxSourceObj: {fileID: 2095874405}
   gameMusic: {fileID: 0}
-  buttonSound: {fileID: 0}
+  boilingWaterSfx: {fileID: 8300000, guid: 95b2472adabe3884ea419a1af5047bd7, type: 3}
+  cracklingFireSfx: {fileID: 8300000, guid: 8e3979b1dd03feb4b87a668c045d07f7, type: 3}
+  poppingBubblesSfx: {fileID: 8300000, guid: 49a53ba9c1a0f0f40b5f10094eeb69c1, type: 3}
+  flowingWaterSfx: {fileID: 8300000, guid: 192e796c7e7ec714e8ec2b60643c8461, type: 3}
+  toiletFlushSfx: {fileID: 8300000, guid: f2379fde07c4cdc45a19adea2fc1b6c5, type: 3}
+  fireRefuelSfx: {fileID: 8300000, guid: 336e0c86005b9ed449c688ddc13de745, type: 3}
+  fireBlowSfx: {fileID: 8300000, guid: a08764fbd4d45304ea5b3c5435685f44, type: 3}
+  leverActivationSfx: {fileID: 8300000, guid: 49d84b8a7eea49042a19b945ec8e53fe, type: 3}
+  victorySfx: {fileID: 8300000, guid: 9e8dfc173c1daad4fac08b406a7997cf, type: 3}
+  failSfx: {fileID: 8300000, guid: 674969ecf37b57a46a8f8efc19372592, type: 3}
+  randomWaterSfxSounds:
+  - {fileID: 8300000, guid: 20ab28b71c4545c43972b96e90abfbec, type: 3}
+  - {fileID: 8300000, guid: 9b03e04827b9840459e14700a5fa4140, type: 3}
+  - {fileID: 8300000, guid: 6c96d89e897e7724dbe9b8a19b3505b7, type: 3}
+  - {fileID: 8300000, guid: 7b548d6a32ebe114b8f0d662bdf47362, type: 3}
+  - {fileID: 8300000, guid: 011d6a036b51df94cb7efadb12ea434f, type: 3}
+  - {fileID: 8300000, guid: 0aab82464e7bf594aab8064a5a663cf7, type: 3}
+  - {fileID: 8300000, guid: f26e94f947edb564b88d0c61dad9cfe0, type: 3}
+  - {fileID: 8300000, guid: 28fc54cb6516a4c44adb6f8ee821b2b6, type: 3}
+  - {fileID: 8300000, guid: b05b3a9cc937185468b543d6bd2a7fa1, type: 3}
+  randomValveSfxSounds:
+  - {fileID: 8300000, guid: 93a690a3b51203b40bf90c7ab8446285, type: 3}
+  - {fileID: 8300000, guid: 1b002c5066d54e54f9d2a54d94c8208b, type: 3}
+  - {fileID: 8300000, guid: fe329353f967a1f41ac8b7a0bc63a9cc, type: 3}
+  - {fileID: 8300000, guid: 9169df7d8ada2014d8c5700cc807400c, type: 3}
+  - {fileID: 8300000, guid: fbd40ca900e5bc74e8a9af7bc992f8d5, type: 3}
 --- !u!1 &661691772
 GameObject:
   m_ObjectHideFlags: 0
