@@ -1,7 +1,9 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Splines;
 using UnityEngine.VFX;
+using static UnityEditor.Progress;
 
 public class Spawner : MonoBehaviour
 {
@@ -10,11 +12,16 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] protected ActionEvent actionEvent;
     [SerializeField] protected Transform chaudronTransform;
+    [SerializeField] protected Transform waypointTransform;
 
     [SerializeField] protected IngredientType currentIngredientType;
     [SerializeField] protected float curveIntensity = 2;
     [SerializeField] protected VisualEffect dropVFX;
     [SerializeField] protected float timeToDrop = 2;
+
+    [SerializeField] private SplineContainer spline;
+
+    private Item currentIngredient;
 
     private void Start()
     {
@@ -34,41 +41,25 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void DoIngredientAnimation()
+    private void DoIngredientAnimation ()
     {
         Item item = Instantiate(itemPrefab, transform.position, Quaternion.identity);
-        item.SetSprite(itemSprites[Random.Range(0, itemSprites.Count)]);
-        item.PlayVFX();
-        //item.transform.DOMove(chaudronTransform.position, 4).SetEase(Ease.InOutSine);
-        Debug.Log("chauldron = " + chaudronTransform.position + " / Intermediaire = " + new Vector3(chaudronTransform.position.x, transform.position.y));
+        currentIngredient = item;
+        item.Setup(itemSprites[Random.Range(0, itemSprites.Count)], spline);
+        item.PlayVFX(true);
+        item.PlaySpline(PlayAfterDrop, timeToDrop);
+    }
 
-        Vector3[] arrayWaypoints = new Vector3[3];
-        arrayWaypoints[0] = chaudronTransform.position;
+    private void PlayAfterDrop ()
+    {
+        if (currentIngredient == null) { return; }
 
-        Vector3 middleDirection = (chaudronTransform.position - transform.position) / 2;
-        Vector3 middlePoint = transform.position + middleDirection;
-        Vector3 toChaudronDirection = middlePoint - chaudronTransform.position;
-        Vector3 rotatedDirection = Quaternion.Euler(0, 0, -90) * toChaudronDirection;
-
-        if (chaudronTransform.position.x < transform.position.x)
+        dropVFX.Play();
+        currentIngredient.PlayVFX(false);
+        currentIngredient.SpriteRenderer.DOFade(0, 0.5f).OnComplete(() =>
         {
-            rotatedDirection = -rotatedDirection;
-        }
-
-        arrayWaypoints[1] = middlePoint + rotatedDirection.normalized * curveIntensity;
-        arrayWaypoints[2] = middlePoint + rotatedDirection.normalized * curveIntensity;
-
-        //Debug.DrawRay(middlePoint, -rotatedDirection, Color.yellow, 3);
-
-        item.transform.DOPath(arrayWaypoints, timeToDrop, pathType: PathType.CubicBezier, pathMode: PathMode.Ignore).SetEase(Ease.InSine).OnComplete(() =>
-        {
-            dropVFX.Play();
-
-            item.SpriteRenderer.DOFade(0, 0.5f).OnComplete(() =>
-            {
-                Destroy(item.gameObject);
-                actionEvent.OnENDChangeIngredient?.Invoke(currentIngredientType);
-            });
+            Destroy(currentIngredient.gameObject);
+            actionEvent.OnENDChangeIngredient?.Invoke(currentIngredientType);
         });
     }
 }

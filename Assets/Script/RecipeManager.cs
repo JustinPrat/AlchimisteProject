@@ -14,6 +14,7 @@ public class RecipeManager : MonoBehaviour
 
     [SerializeField] private VisualEffect visualEffectBubble;
     [SerializeField] private VisualEffect visualEffectDrop;
+    [SerializeField] private VisualEffect visualEffectFire;
 
     private Rect currentRecipeWindowRect = new Rect(10, 10, 250, 150);
     private Rect targetRecipeWindowRect = new Rect(270, 10, 250, 150);
@@ -84,6 +85,18 @@ public class RecipeManager : MonoBehaviour
 
     public void SetElement(HeatLevel type)
     {
+        if (currentRecipe.heatLevel != type)
+        {
+            switch (type)
+            {
+                case HeatLevel.Chaud:
+                    visualEffectFire.Play();
+                    break;
+                case HeatLevel.Froid:
+                    visualEffectFire.Stop();
+                    break;
+            }
+        }
         currentRecipe.heatLevel = type;
     }
 

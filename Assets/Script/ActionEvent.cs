@@ -87,6 +87,12 @@ public class ActionEvent : MonoBehaviour
         }
     }
 
+    public void ResetRecipe ()
+    {
+        OnENDChangeIngredient?.Invoke(IngredientType.A);
+        OnENDChangePotion?.Invoke(PotionType.Rouge);
+    }
+
     public void OnValidateButton(InputAction.CallbackContext context)
     {
         if (context.started)
