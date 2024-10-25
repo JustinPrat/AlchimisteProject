@@ -14,6 +14,7 @@ public class RecipeManager : MonoBehaviour
 
     [SerializeField] private VisualEffect visualEffectBubble;
     [SerializeField] private VisualEffect visualEffectDrop;
+    [SerializeField] private VisualEffect visualEffectFire;
 
     private Rect currentRecipeWindowRect = new Rect(10, 10, 250, 150);
     private Rect targetRecipeWindowRect = new Rect(270, 10, 250, 150);
@@ -22,11 +23,13 @@ public class RecipeManager : MonoBehaviour
 
     [SerializeField, GradientUsage(true)] private List<Gradient> gradientsBubble;
     [SerializeField, GradientUsage(true)] private List<Gradient> gradientsDrop;
+    [SerializeField] private VisualEffect resultVFX;
 
     private float fireValuePercent;
     [SerializeField] private float firePace;
     [SerializeField] private float fireIncrease;
     [SerializeField] private float fireThresholdHot;
+    [SerializeField] private Texture2D trashTexture;
 
     private void Update()
     {
@@ -41,10 +44,10 @@ public class RecipeManager : MonoBehaviour
     {
         targetRecipe.Recipe = new Recipe();
 
-        if (recipes.Count > 0)
-        {
-            targetRecipe = recipes[0];
-        }
+        //if (recipes.Count > 0)
+        //{
+        //    targetRecipe = recipes[0];
+        //}
 
         actionEvent.OnENDChangePotion += SetElement;
         actionEvent.OnENDChangeIngredient += SetElement;
@@ -84,80 +87,113 @@ public class RecipeManager : MonoBehaviour
 
     public void SetElement(HeatLevel type)
     {
+        if (currentRecipe.heatLevel != type)
+        {
+            switch (type)
+            {
+                case HeatLevel.Chaud:
+                    visualEffectFire.Play();
+                    AudioManager.Instance.PlaySfxOneShot(AudioManager.Instance.cracklingFireSfx);
+                    break;
+                case HeatLevel.Froid:
+                    visualEffectFire.Stop();
+                    AudioManager.Instance.PlaySfxOneShot(AudioManager.Instance.fireBlowSfx);
+                    break;
+            }
+        }
         currentRecipe.heatLevel = type;
     }
 
-    private void TryValidate ()
+    private void TryValidate()
     {
-        ComparePlayerResult(targetRecipe.Recipe.potionType, targetRecipe.Recipe.ingredientType, targetRecipe.Recipe.heatLevel);
+        CheckAllRecipes();
+
+        //ComparePlayerResult(targetRecipe.Recipe.potionType, targetRecipe.Recipe.ingredientType, targetRecipe.Recipe.heatLevel);
     }
 
-    public bool ComparePlayerResult(PotionType playerPotion, IngredientType playerIngredient, HeatLevel playerHeat)
+    private void CheckAllRecipes ()
     {
-        if (playerPotion == currentRecipe.potionType && playerIngredient == currentRecipe.ingredientType && playerHeat == currentRecipe.heatLevel)
+        for (int i = 0; i < recipes.Count; i++)
         {
-            Debug.Log("Recette correcte !");
-            SetNextRecipe();
-            return true;
+            if (recipes[i].Recipe.heatLevel == currentRecipe.heatLevel && recipes[i].Recipe.potionType == currentRecipe.potionType && recipes[i].Recipe.ingredientType == currentRecipe.ingredientType)
+            {
+                resultVFX.SetTexture("Animal", recipes[i].Texture);
+                AudioManager.Instance.PlaySfxOneShot(AudioManager.Instance.victorySfx);
+                resultVFX.Play();
+                return;
+            }
         }
-        else
-        {
-            Debug.Log("Recette incorrecte.");
-            return false;
-        }
+
+        resultVFX.SetTexture("Animal", trashTexture);
+        AudioManager.Instance.PlaySfxOneShot(AudioManager.Instance.failSfx);
     }
 
-    private void SetNextRecipe()
-    {
-        currentRecipeIndex++;
-        if (currentRecipeIndex < recipes.Count)
-        {
-            targetRecipe = recipes[currentRecipeIndex];
-        }
-        else
-        {
-            Debug.Log("Bien joué chacal t'a fini le jeu");
-        }
-    }
+    //public bool ComparePlayerResult(PotionType playerPotion, IngredientType playerIngredient, HeatLevel playerHeat)
+    //{
+    //    if (playerPotion == currentRecipe.potionType && playerIngredient == currentRecipe.ingredientType && playerHeat == currentRecipe.heatLevel)
+    //    {
+    //        Debug.Log("Recette correcte !");
+    //        SetNextRecipe();
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Recette incorrecte.");
+    //        return false;
+    //    }
+    //}
+
+    //private void SetNextRecipe()
+    //{
+    //    currentRecipeIndex++;
+    //    if (currentRecipeIndex < recipes.Count)
+    //    {
+    //        targetRecipe = recipes[currentRecipeIndex];
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Bien joué chacal t'a fini le jeu");
+    //    }
+    //}
 
 
     private void OnGUI()
     {
-        currentRecipeWindowRect = GUI.Window(0, currentRecipeWindowRect, DisplayCurrentRecipeWindow, "Current Recipe");
-        targetRecipeWindowRect = GUI.Window(1, targetRecipeWindowRect, DisplayTargetRecipeWindow, "Target Recipe");
+        //currentRecipeWindowRect = GUI.Window(0, currentRecipeWindowRect, DisplayCurrentRecipeWindow, "Current Recipe");
+        //targetRecipeWindowRect = GUI.Window(1, targetRecipeWindowRect, DisplayTargetRecipeWindow, "Target Recipe");
     }
 
-    private void DisplayCurrentRecipeWindow(int windowID)
-    {
-        if (currentRecipe != null)
-        {
-            GUILayout.Label("Potion: " + currentRecipe.potionType);
-            GUILayout.Label("Ingredient: " + currentRecipe.ingredientType);
-            GUILayout.Label("Heat: " + currentRecipe.heatLevel);
-        }
-        else
-        {
-            GUILayout.Label("null");
-        }
+    //private void DisplayCurrentRecipeWindow(int windowID)
+    //{
+    //    if (currentRecipe != null)
+    //    {
+    //        GUILayout.Label("Potion: " + currentRecipe.potionType);
+    //        GUILayout.Label("Ingredient: " + currentRecipe.ingredientType);
+    //        GUILayout.Label("Heat: " + currentRecipe.heatLevel);
+    //    }
+    //    else
+    //    {
+    //        GUILayout.Label("null");
+    //    }
 
-        GUI.DragWindow();
-    }
+    //    GUI.DragWindow();
+    //}
 
-    private void DisplayTargetRecipeWindow(int windowID)
-    {
-        if (targetRecipe != null)
-        {
-            GUILayout.Label("Potion: " + targetRecipe.Recipe.potionType);
-            GUILayout.Label("Ingredient: " + targetRecipe.Recipe.ingredientType);
-            GUILayout.Label("Heat: " + targetRecipe.Recipe.heatLevel);
-        }
-        else
-        {
-            GUILayout.Label("null");
-        }
+    //private void DisplayTargetRecipeWindow(int windowID)
+    //{
+    //    if (targetRecipe != null)
+    //    {
+    //        GUILayout.Label("Potion: " + targetRecipe.Recipe.potionType);
+    //        GUILayout.Label("Ingredient: " + targetRecipe.Recipe.ingredientType);
+    //        GUILayout.Label("Heat: " + targetRecipe.Recipe.heatLevel);
+    //    }
+    //    else
+    //    {
+    //        GUILayout.Label("null");
+    //    }
 
-        GUI.DragWindow();
-    }
+    //    GUI.DragWindow();
+    //}
 }
 
 [Serializable]

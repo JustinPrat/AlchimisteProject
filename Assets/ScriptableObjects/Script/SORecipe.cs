@@ -5,4 +5,5 @@ public class SORecipe : ScriptableObject
 {
     public int Id;
     public Recipe Recipe;
+    public Texture2D Texture;
 }

@@ -14,7 +14,7 @@ public enum PotionType
 
 public enum IngredientType
 {
-    A,
-    B,
-    C
+    Plant,
+    Animal,
+    Occulte
 }
