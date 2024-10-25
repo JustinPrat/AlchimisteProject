@@ -42,6 +42,7 @@ public class ActionEvent : MonoBehaviour
     private void EndOfIngredientChange (IngredientType type)
     {
         canChangeIngredient = true;
+        AudioManager.Instance.PlayRandomSfx(AudioManager.Instance.randomWaterSfxSounds);
     }
 
     private void EndOfPotionChange (PotionType type)
@@ -61,6 +62,7 @@ public class ActionEvent : MonoBehaviour
         {
             canChangePotion = false;
             OnSTARTChangePotion?.Invoke((PotionType)type);
+            AudioManager.Instance.PlayRandomSfx(AudioManager.Instance.randomValveSfxSounds);
             //StartCoroutine(CooldownBetweenPress(() => canChangePotion = true));
         }
     }
@@ -72,6 +74,7 @@ public class ActionEvent : MonoBehaviour
         {
             canChangeIngredient = false;
             OnSTARTChangeIngredient?.Invoke((IngredientType)type);
+            AudioManager.Instance.PlaySfxOneShot(AudioManager.Instance.leverActivationSfx);
         }
     }
 
@@ -84,6 +87,11 @@ public class ActionEvent : MonoBehaviour
             canChangeHeat = false;
             OnSTARTChangeHeat?.Invoke((HeatLevel)type);
             StartCoroutine(CooldownBetweenPress(EndOfHeatChange));
+
+            if ((HeatLevel)type == HeatLevel.Chaud)
+            {
+                AudioManager.Instance.PlaySfxOneShot(AudioManager.Instance.fireRefuelSfx);
+            }
         }
     }
 
@@ -91,6 +99,8 @@ public class ActionEvent : MonoBehaviour
     {
         OnENDChangeIngredient?.Invoke(IngredientType.Plant);
         OnENDChangePotion?.Invoke(PotionType.Rouge);
+
+        AudioManager.Instance.PlaySfxOneShot(AudioManager.Instance.toiletFlushSfx);
     }
 
     public void OnValidateButton(InputAction.CallbackContext context)

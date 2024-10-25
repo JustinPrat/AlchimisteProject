@@ -16,20 +16,20 @@ public class AudioManager : MonoBehaviour
     
     [Space]
     [Header("Audio Clips")]
-    [SerializeField] private AudioClip gameMusic;
-    [SerializeField] private AudioClip boilingWaterSfx;
-    [SerializeField] private AudioClip cracklingFireSfx;
-    [SerializeField] private AudioClip poppingBubblesSfx;
-    [SerializeField] private AudioClip flowingWaterSfx;
-    [SerializeField] private AudioClip toiletFlushSfx;
-    [SerializeField] private AudioClip fireRefuelSfx;
-    [SerializeField] private AudioClip fireBlowSfx;
-    [SerializeField] private AudioClip leverActivationSfx;
-    [SerializeField] private AudioClip victorySfx;
-    [SerializeField] private AudioClip failSfx;
-    
-    [SerializeField] List<AudioClip> randomWaterSfxSounds = new List<AudioClip>();
-    [SerializeField] List<AudioClip> randomValveSfxSounds = new List<AudioClip>();
+    public AudioClip gameMusic;
+    public AudioClip boilingWaterSfx;
+    public AudioClip cracklingFireSfx;
+    public AudioClip poppingBubblesSfx;
+    public AudioClip flowingWaterSfx;
+    public AudioClip toiletFlushSfx;
+    public AudioClip fireRefuelSfx;
+    public AudioClip fireBlowSfx;
+    public AudioClip leverActivationSfx;
+    public AudioClip victorySfx;
+    public AudioClip failSfx;
+
+    public List<AudioClip> randomWaterSfxSounds = new List<AudioClip>();
+    public List<AudioClip> randomValveSfxSounds = new List<AudioClip>();
     
     private void Awake()
     {
@@ -48,18 +48,18 @@ public class AudioManager : MonoBehaviour
         sfxAudioSource = sfxSourceObj.GetComponent<AudioSource>();
     }
     
-    void Start()
-    {
-        musicAudioSource.clip = gameMusic;
-        musicAudioSource.Play();
-    }
+    //void Start()
+    //{
+    //    musicAudioSource.clip = gameMusic;
+    //    musicAudioSource.Play();
+    //}
     
-    void PlaySfxOneShot(AudioClip sfxToPlay)
+    public void PlaySfxOneShot(AudioClip sfxToPlay)
     {
         sfxAudioSource.PlayOneShot(sfxToPlay);
     }
 
-    void PlayRandomSfx(List<AudioClip> randomSfxList)
+    public void PlayRandomSfx(List<AudioClip> randomSfxList)
     {
         AudioClip randomSfxToPlay = randomSfxList[Random.Range(0, randomSfxList.Count)];
         
