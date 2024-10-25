@@ -107,4 +107,12 @@ public class ActionEvent : MonoBehaviour
         yield return new WaitForSeconds(heatCooldownTime);
         toDoAfter?.Invoke();
     }
+
+    //private void Update()llllll                
+    //{
+    //    if (Input.anyKey)
+    //    {
+    //        Debug.Log(Input.GetKey(name));
+    //    }
+    //}
 }
