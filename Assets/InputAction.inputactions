@@ -6,7 +6,7 @@
             "id": "caebcbc4-aa52-43a4-be12-c27256c4e086",
             "actions": [
                 {
-                    "name": "Space",
+                    "name": "PotionRed",
                     "type": "Button",
                     "id": "98117ac8-5121-4c3f-8953-40bc4c15191d",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "A",
+                    "name": "PotionGreen",
                     "type": "Button",
                     "id": "a2361a05-88a8-4e99-9328-2a5931a66eea",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Z",
+                    "name": "PotionBlue",
                     "type": "Button",
                     "id": "e69f3d4c-c7ba-46f9-8b46-0bec19f45cfd",
                     "expectedControlType": "Button",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Enter",
+                    "name": "Validate",
                     "type": "Button",
                     "id": "1fc58c28-159c-4b48-80ea-96b62fee9352",
                     "expectedControlType": "Button",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "R",
+                    "name": "Plant",
                     "type": "Button",
                     "id": "886474e1-cfc2-4b80-8d47-bea50e97b418",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "T",
+                    "name": "Guts",
                     "type": "Button",
                     "id": "42609e78-6f8e-4557-9892-09f4a33091eb",
                     "expectedControlType": "Button",
@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Y",
+                    "name": "Occulte",
                     "type": "Button",
                     "id": "6279639a-bbd3-4e20-bdae-f6a6bf2e971d",
                     "expectedControlType": "Button",
@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "U",
+                    "name": "Heat",
                     "type": "Button",
                     "id": "c430f46e-d47b-4e76-ab0a-1115e9332ff4",
                     "expectedControlType": "Button",
@@ -78,9 +78,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "I",
+                    "name": "Reset",
                     "type": "Button",
-                    "id": "5bea0e94-1a25-4f69-97bd-f68f95420039",
+                    "id": "c0696547-f076-4f93-80ac-1e19b73e73a1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -91,99 +91,110 @@
                 {
                     "name": "",
                     "id": "007ae644-ec88-4004-b124-b53c40c9c917",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Space",
+                    "action": "PotionRed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "e719c535-b4d2-450e-86e7-f6c20e287120",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "A",
+                    "action": "PotionGreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "fcc6b019-da77-4df2-84ff-705194202731",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Z",
+                    "action": "PotionBlue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "2d51261a-da3c-4422-9ff5-48d5f9021de7",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Enter",
+                    "action": "Validate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "49c7b607-f203-4bad-a535-d1980bfe0b10",
+                    "path": "<Keyboard>/semicolon",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Validate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "c93a627c-0ecc-4ce8-bc8e-b4f39005f972",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "R",
+                    "action": "Plant",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "915d988d-2f66-4ee7-8311-2c087a2b2a8a",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "T",
+                    "action": "Guts",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "39e6cffe-fc41-422c-b6ea-6da6c80fe219",
-                    "path": "<Keyboard>/y",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Y",
+                    "action": "Occulte",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "aacda7d1-804d-4fa7-a4d4-777ff9e0b79c",
-                    "path": "<Keyboard>/u",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "U",
+                    "action": "Heat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "a206640a-9c71-47fb-9d43-b520760ae775",
-                    "path": "<Keyboard>/i",
+                    "id": "ad4ccb07-f7ef-4467-927b-7990578a0f66",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "I",
+                    "action": "Reset",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

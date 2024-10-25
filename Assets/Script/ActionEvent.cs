@@ -89,7 +89,7 @@ public class ActionEvent : MonoBehaviour
 
     public void ResetRecipe ()
     {
-        OnENDChangeIngredient?.Invoke(IngredientType.A);
+        OnENDChangeIngredient?.Invoke(IngredientType.Plant);
         OnENDChangePotion?.Invoke(PotionType.Rouge);
     }
 

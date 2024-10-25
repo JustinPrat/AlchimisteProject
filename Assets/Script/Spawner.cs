@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 using UnityEngine.VFX;
-using static UnityEditor.Progress;
 
 public class Spawner : MonoBehaviour
 {

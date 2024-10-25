@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70ee7ee1639ebaf46a58efcec74123b8, type: 3}
-  m_Name: 1
+  m_Name: SangVegetalFroid
   m_EditorClassIdentifier: 
-  Id: 0
+  Id: 9
   Recipe:
-    potionType: 1
-    ingredientType: 1
+    potionType: 0
+    ingredientType: 0
     heatLevel: 1
+  Texture: {fileID: 2800000, guid: 8f9bbd9f4d598274cb8abe21616eb7c2, type: 3}

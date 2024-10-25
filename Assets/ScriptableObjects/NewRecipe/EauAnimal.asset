@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70ee7ee1639ebaf46a58efcec74123b8, type: 3}
-  m_Name: 2
+  m_Name: EauAnimal
   m_EditorClassIdentifier: 
   Id: 0
   Recipe:
     potionType: 2
-    ingredientType: 0
+    ingredientType: 1
     heatLevel: 1
+  Texture: {fileID: 2800000, guid: 612dc9363f8a2d24aacf41c73a87555d, type: 3}
